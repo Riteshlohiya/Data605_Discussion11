@@ -1,0 +1,68 @@
+---
+title: "RLohiya Discussion11"
+author: "Ritesh Lohiya"
+date: "November 6, 2018"
+output: html_document
+---
+
+#                             Discussion 11
+
+#           IS 605 FUNDAMENTALS OF COMPUTATIONAL MATHEMATICS
+
+#                       Linear Regression Model
+
+
+
+#Assignment: Using R, build a  regression model for data that interests you.  Conduct residual analysis.  Was the linear model appropriate? Why or why not?
+
+
+I just created my own salary data and tried to fit the linear regression model. The Data has 2 columns years of experience and salary.
+
+```{r}
+#Salary data
+salary <- read.csv('https://raw.githubusercontent.com/Riteshlohiya/Data605_Discussion11/master/Salary_Data.csv')
+salary
+summary(salary)
+```
+
+```{r}
+#Distribution
+hist(salary$YearsExperience, main = "Histogram of Years of Experience")
+hist(salary$Salary, main = "Histogram of Years of Salary")
+plot(salary$YearsExperience ~ salary$Salary, main = "Years of Experience vs Salary")
+```
+
+Craete a simple regression model:
+
+```{r}
+# Simple linear regression model
+slm <- lm(salary$YearsExperience ~ salary$Salary)
+summary(slm)
+```
+
+```{r}
+plot(salary$YearsExperience ~ salary$Salary, 
+     xlab='Salary',
+     ylab='Years of Experience',
+     main='Years of Experience vs Salary')
+abline(slm)
+```
+
+Residual plots:
+
+```{r}
+# Residuals
+plot(slm$residuals, ylab='Residuals')
+abline(a=0, b=0)
+```
+
+```{r}
+# Q-Q plot
+qqnorm(slm$residuals)
+qqline(slm$residuals)
+```
+
+#Conclusion:
+
+The R-squared value is 95.7% which is good. That means that the explained variability is 95.7 % between independent and dependent variables. Seeing the residual plot, we can see there is constant variability and no pattern. Q-Q plot also looks good with some outliers at the tails. I think this linear model is appropriate.
+
